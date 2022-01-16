@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
           );
         },
         beforeUpdate: async (despesa) => {
-          console.log(despesa.valor);
           await sequelize.models.contas.update(
             {
               saldo: sequelize.literal(
