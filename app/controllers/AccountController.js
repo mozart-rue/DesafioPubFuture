@@ -1,4 +1,4 @@
-const { contas, sequelize } = require("../models");
+const { contas, sequelize, receitas, despesas } = require("../models");
 
 module.exports = {
   // POST -> Create a new account
@@ -38,8 +38,16 @@ module.exports = {
   // DELETE -> Remove an account
   async delete_account(req, res) {
     const account_id = req.params.id;
-
+    // Delete from contas
     await contas.destroy({
+      where: { conta: `${account_id}` },
+    });
+    // Delete from receitas
+    await receitas.destroy({
+      where: { conta: `${account_id}` },
+    });
+    // Delete from despesas
+    await despesas.destroy({
       where: { conta: `${account_id}` },
     });
 
